@@ -1,3 +1,4 @@
+using System;
 using ApiMongo.Data.Collections;
 using ApiMongo.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,22 @@ namespace ApiMongo.Controllers
             var infectados = _infectadosCollection.Find(Builders<Infectado>.Filter.Empty).ToList();
             
             return Ok(infectados);
+        }
+
+        [HttpPut]
+        public ActionResult AtualizarInfectado([FromBody] InfectadoDto dto)
+        {
+            _infectadosCollection.UpdateOne(Builders<Infectado>.Filter.Where(_ => _.DataNascimento == dto.DataNascimento), Builders<Infectado>.Update.Set("sexo", dto.Sexo));
+            
+            return Ok("Atualizado");
+        }
+
+        [HttpDelete("{dataNasc}")]
+        public ActionResult Delete(DateTime dataNasc)
+        {
+            _infectadosCollection.DeleteOne(Builders<Infectado>.Filter.Where(_ => _.DataNascimento == dataNasc));
+            
+            return Ok("Deletado");
         }
     }
 }
