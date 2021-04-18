@@ -38,7 +38,7 @@
           "dependencies": {
             "MongoDB.Driver": {
               "target": "Package",
-              "version": "[*, )"
+              "version": "[2.12.2, )"
             }
           },
           "imports": [
